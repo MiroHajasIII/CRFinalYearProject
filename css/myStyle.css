@@ -1,3 +1,33 @@
 * {
     /*background-color: rgba(209, 209, 209);*/
 }
+
+h1 {
+    text-align: center;
+    padding-top: 1.5%;
+}
+
+.navbar-dark.bg-dark .navbar-nav .nav-link {
+    color: #ffffff;
+}
+.navbar-dark.bg-dark .navbar-brand {
+    color: #ffffff;
+}
+
+body {
+    background-color: #f2f2f2;
+}
+
+/* default hoverable text / button style */
+#hoverable {
+    background-color: #4ecdc4;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#hoverable:hover {
+    background-color: #45a29e; /* New background color on hover */
+}
