@@ -1,33 +1,97 @@
-* {
-    /*background-color: rgba(209, 209, 209);*/
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-h1 {
+/* adjust position of #background ID */
+#background {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    background: linear-gradient(-60deg, #c5dde2, #5f6869);
+    z-index: -1; /* set a lower z index to ensure it's behind the navbar */
+
+    display: flex;
+    align-items: center;
+}
+
+/* adjust z index of navbar */
+.navbar {
+    z-index: 1; /* set z index to ensure it's above the background */
+    background-color: #ececec;
+}
+li {
+    margin: 2px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /*background-color: rgba(51, 51, 51, 0.2);*/
+    padding: 5px;
+    margin: 0;
     text-align: center;
+    color: #ececec;
+}
+
+/* index page image and titles code */
+img {
+    max-width: 100%; /* ensure image does not exceed container width */
+    height: auto; /* maintain aspect ratio */
+    display: block; /* remove extra space around the image */
+}
+@media (max-width: 991px) {
+    #image-container {
+        display: none;
+    }
+}
+#text-container {
+    flex: 1; /* take up remaining space */
+}
+#image-container {
+    flex: 1; /* take up remaining space */
+    padding-right: 20px;
+}
+
+/* other styles */
+h1 {
+    color: #E75646;
+}
+h2 {
+    color: #ececec;
+}
+h1, h2 {
+    text-align: center;
+    margin-left: 20px;
     padding-top: 1.5%;
 }
 
-.navbar-dark.bg-dark .navbar-nav .nav-link {
-    color: #ffffff;
+.navbar .nav-item .nav-link {
+    background-color: transparent;
+    color: #2d2d2d;
 }
 .navbar-dark.bg-dark .navbar-brand {
     color: #ffffff;
 }
 
-body {
-    background-color: #f2f2f2;
-}
-
 /* default hoverable text / button style */
 #hoverable {
-    background-color: #4ecdc4;
-    color: #fff;
+    color: #ffffff;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
+/* hover formats */
 #hoverable:hover {
-    background-color: #45a29e; /* New background color on hover */
+    background-color: white;
+}
+.navbar .nav-item .nav-link:hover {
+    color: #E75646;
 }
