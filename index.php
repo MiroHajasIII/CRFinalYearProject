@@ -1,6 +1,6 @@
 <?php
 $view = new stdClass();
-$view->pageTitle = 'Index Page';
+$view->pageTitle = 'Code Sculptor HomePage';
 
 // area for implementing more logic once needed
 // logic ideas: user login logic

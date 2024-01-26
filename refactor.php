@@ -1,6 +1,6 @@
 <?php
 $view = new stdClass();
-$view->pageTitle = 'Refactor Page';
+$view->pageTitle = 'Code Refactor';
 
 // area for implementing more logic once needed
 // logic ideas: user login logic
