@@ -2,19 +2,26 @@ body, html {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 /* adjust position of #background ID */
 #background {
     position: absolute;
-    top: 60px;
     left: 0;
     width: 100%;
     height: calc(100% - 60px);
     background: linear-gradient(-60deg, #c5dde2, #5f6869);
     z-index: -1; /* set a lower z index to ensure it's behind the navbar */
-
+    display: flex;
+    align-items: center;
+}
+#fixedBackground {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    background: linear-gradient(-60deg, #c5dde2, #5f6869);
+    z-index: -1; /* set a lower z index to ensure it's behind the navbar */
     display: flex;
     align-items: center;
 }
@@ -28,21 +35,25 @@ li {
     margin: 2px;
 }
 footer {
-    position: absolute;
-    bottom: 0;
+    position: fixed; /* Change to fixed */
+    bottom: 0; /* Align to bottom of viewport */
     width: 100%;
-    /*background-color: rgba(51, 51, 51, 0.2);*/
+    background-color: rgba(0, 0, 0, 0.1);
     padding: 5px;
-    margin: 0;
     text-align: center;
     color: #ececec;
 }
+
 
 /* index page image and titles code */
 img {
     max-width: 100%; /* ensure image does not exceed container width */
     height: auto; /* maintain aspect ratio */
     display: block; /* remove extra space around the image */
+}
+#codingGif {
+    margin-top: 10%;
+    margin-bottom: 25%;
 }
 @media (max-width: 991px) {
     #image-container {
@@ -95,4 +106,9 @@ h1, h2 {
 }
 .navbar .nav-item .nav-link:hover {
     color: #E75646;
+}
+
+.container {
+    padding-top: 75%;
+    padding-bottom: 15%;
 }
