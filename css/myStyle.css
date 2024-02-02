@@ -7,6 +7,11 @@ body, html {
     z-index: -1;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* adjust position of #background ID */
 #background {
     position: absolute;
@@ -61,7 +66,20 @@ img {
     #image-container {
         display: none;
     }
+    #text-container {
+        margin-top: 0.5%;
+    }
 }
+@media (min-width: 992px) {
+    #text-container {
+        padding-top: 0;
+        margin-top: 0;
+    }
+    div.container {
+        padding-top: 50%;
+    }
+}
+
 #text-container {
     flex: 1; /* take up remaining space */
 }
