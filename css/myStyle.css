@@ -12,13 +12,12 @@ a {
     color: inherit;
 }
 
-/* adjust position of #background ID */
+/* --- BACKGROUND IDS --- */
 #background {
     position: absolute;
     left: 0;
     width: 100%;
     height: calc(100% - 60px);
-    /*background: linear-gradient(-60deg, #c5dde2, #5f6869);*/
     display: flex;
     align-items: center;
 }
@@ -32,7 +31,7 @@ a {
     align-items: center;
 }
 
-/* adjust z index of navbar */
+/* --- NAVBAR & FOOTER --- */
 .navbar {
     z-index: 1; /* set z index to ensure it's above the background */
     background-color: #ececec;
@@ -51,7 +50,7 @@ footer {
 }
 
 
-/* index page image and titles code */
+/* --- INDEX PAGE --- */
 img {
     max-width: 100%; /* ensure image does not exceed container width */
     height: auto; /* maintain aspect ratio */
@@ -62,23 +61,6 @@ img {
     margin-top: 10%;
     margin-bottom: 5%;
 }
-@media (max-width: 991px) {
-    #image-container {
-        display: none;
-    }
-    #text-container {
-        margin-top: 0.5%;
-    }
-}
-@media (min-width: 992px) {
-    #text-container {
-        padding-top: 0;
-        margin-top: 0;
-    }
-    div.container {
-        padding-top: 50%;
-    }
-}
 
 #text-container {
     flex: 1; /* take up remaining space */
@@ -88,7 +70,6 @@ img {
     padding-right: 20px;
 }
 
-/* other styles */
 h1 {
     color: #E75646;
 }
@@ -110,6 +91,14 @@ h1, h2 {
     color: #ffffff;
 }
 
+
+/* --- HOVER FORMATS --- */
+#hoverable:hover {
+    background-color: white;
+}
+.navbar .nav-item .nav-link:hover {
+    color: #E75646;
+}
 /* default hoverable text / button style */
 #hoverable {
     color: #ffffff;
@@ -120,15 +109,32 @@ h1, h2 {
     transition: background-color 0.3s ease;
 }
 
-/* hover formats */
-#hoverable:hover {
-    background-color: white;
-}
-.navbar .nav-item .nav-link:hover {
-    color: #E75646;
-}
-
 .container {
     padding-top: 75%;
     padding-bottom: 15%;
+}
+.refactoringContainer {
+    padding-top: 5%;
+    padding-bottom: 15%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- MEDIA TAGS --- */
+@media (max-width: 991px) {
+    #image-container {
+        display: none;
+    }
+    #text-container {
+        margin-top: 0.5%;
+    }
+}
+@media (min-width: 992px) {
+    #text-container {
+        padding-top: 0;
+        margin-top: 0;
+    }
+    div.container {
+        padding-top: 50%;
+    }
 }
