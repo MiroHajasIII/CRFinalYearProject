@@ -5,50 +5,39 @@
     <div class="refactoringContainer">
         <div class="row">
             <!-- Document Input Choices -->
-            <div class="col-md-6">
+            <div id="documentInputChoices">
                 <h2>Document Input Choices</h2>
-                <div id="documentInputChoices">
-                    <!-- GitHub Link Input WIP TODO-->
-                    <div class="form-group">
-                        <label for="githubLink">GitHub Link:</label>
-                        <input type="text" class="form-control" id="githubLink" placeholder="Enter GitHub link">
-                    </div>
-
-                    <!-- Drag and Drop Area, including multiple file types to be used -->
-                    <div id="dragDropArea">
-                        <p>Drag and drop your file here</p>
-                        <input type="file" id="fileInput" accept=".txt, .php, .phtml, .css, .html">
-                    </div>
+                <!-- GitHub Link Input WIP TODO-->
+                <div class="form-group">
+                    <label for="githubLink">GitHub Link:</label>
+                    <input type="text" class="form-control" id="githubLink" placeholder="Enter GitHub link">
+                </div>
+                <!-- Drag and Drop Area, including multiple file types to be used -->
+                <div id="dragDropArea">
+                    <p>Drag and drop your file here</p>
+                    <input type="file" id="fileInput" accept=".txt, .php, .phtml, .css, .html">
                 </div>
             </div>
 
             <!-- Editor and Results Areas -->
-            <div class="col-md-6">
+            <div>
                 <div class="row">
                     <!-- Editor Area -->
-                    <div class="col-md-12">
-                        <h2>Editor Area</h2>
-                        <div id="editor">
-                            <!-- Editor Display Area -->
-                            <div id="editorDisplay">
-                                <h3>Editor Display Area</h3>
-                                <!-- Display uploaded document here -->
-                                <pre id="uploadedDocument" contenteditable="true"></pre>
-                            </div>
+                    <div class="col-md-6">
+                        <!-- Editor Display Area -->
+                        <div id="editorDisplay">
+                            <h2>Editor Area</h2>
+                            <!-- Display uploaded document here -->
+                            <pre id="uploadedDocument" contenteditable="true"></pre>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <!-- Results Area -->
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <h2>Results Area</h2>
-                        <div id="results">
-                            <h3>Results Area</h3>
-                            <!-- Display refactored code here -->
-                            <pre id="refactoredCode" contenteditable="true"></pre>
-                            <!-- Download Button -->
-                            <button id="downloadButton" class="btn btn-primary">Download Refactored Code</button>
-                        </div>
+                        <!-- Display refactored code here -->
+                        <pre id="refactoredCode" contenteditable="true"></pre>
+                        <!-- Download Button -->
+                        <button id="downloadButton" class="btn btn-primary">Download Refactored Code</button>
                     </div>
                 </div>
             </div>

@@ -109,15 +109,10 @@ h1, h2 {
     transition: background-color 0.3s ease;
 }
 
-.container {
-    padding-top: 75%;
-    padding-bottom: 15%;
-}
-.refactoringContainer {
-    padding-top: 5%;
-    padding-bottom: 15%;
-    margin-left: auto;
-    margin-right: auto;
+/* --- DOCUMENT INPUT CHOICES CLASS --- */
+#documentInputChoices {
+    position: relative;
+    z-index: 2; /* Set a higher z-index */
 }
 
 /* --- MEDIA TAGS --- */
@@ -138,3 +133,41 @@ h1, h2 {
         padding-top: 50%;
     }
 }
+
+/* Updated CSS for document input choices segment */
+#documentInputChoices {
+    padding: 20px;
+}
+#dragDropArea {
+    margin-bottom: 20px;
+}
+/* Remove padding and width constraints for .container and .refactoringContainer */
+.container, .refactoringContainer {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* Update the margin for .refactoringContainer if necessary */
+.refactoringContainer {
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+/* --- EDITOR AND RESULTS AREAS --- */
+/* Editor Display Area */
+#uploadedDocument {
+    border: 1px solid #6e4f4d;
+    padding: 10px;
+    height: 200px;
+    overflow-y: auto;
+}
+
+/* Results Area */
+#refactoredCode {
+    border: 1px solid #6e4f4d;
+    padding: 10px;
+    height: 200px;
+    overflow-y: auto;
+}
+
+
+
