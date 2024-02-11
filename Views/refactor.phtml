@@ -21,7 +21,7 @@
 
             <!-- Editor and Results areas -->
             <div>
-                <div class="row">
+                <div id="textAreas" class="row">
                     <!-- Editor area -->
                     <div class="col-md-6">
                         <!-- Editor display area -->
@@ -113,6 +113,37 @@
             selection.removeAllRanges();
             selection.addRange(range);
         }
+    });
+
+    /**
+     * download edited code functionality
+     */
+    document.getElementById('downloadButton').addEventListener('click', function() {
+        // get the contents of the results area with preserved line breaks and formatting
+        var refactoredCode = document.getElementById('refactoredCode').innerText;
+
+        // create a Blob object containing the text
+        var blob = new Blob([refactoredCode], { type: 'text/plain' });
+
+        // create a URL for the Blob object
+        var url = URL.createObjectURL(blob);
+
+        // create an anchor element with the download attribute set to the desired file name
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'refactored_code.txt';
+
+        // append the anchor element to the body
+        document.body.appendChild(a);
+
+        // simulate a click on the anchor element to trigger the download
+        a.click();
+
+        // remove the anchor element from the body
+        document.body.removeChild(a);
+
+        // revoke the URL to release the resources
+        URL.revokeObjectURL(url);
     });
 </script>
 
