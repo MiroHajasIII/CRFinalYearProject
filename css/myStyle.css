@@ -169,5 +169,10 @@ h1, h2 {
     overflow-y: auto;
 }
 
+#refactorButton, #downloadButton {
+    width: 400px;
+    margin: 0 auto;
+}
+
 
 

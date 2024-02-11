@@ -19,26 +19,28 @@
                 </div>
             </div>
 
-            <!-- Editor and Results Areas -->
+            <!-- Editor and Results areas -->
             <div>
                 <div class="row">
-                    <!-- Editor Area -->
+                    <!-- Editor area -->
                     <div class="col-md-6">
-                        <!-- Editor Display Area -->
+                        <!-- Editor display area -->
                         <div id="editorDisplay">
                             <h2>Editor Area</h2>
                             <!-- Display uploaded document here -->
                             <pre id="uploadedDocument" contenteditable="true"></pre>
                         </div>
                     </div>
-                    <!-- Results Area -->
+                    <!-- Results area -->
                     <div class="col-md-6">
                         <h2>Results Area</h2>
                         <!-- Display refactored code here -->
                         <pre id="refactoredCode" contenteditable="true"></pre>
-                        <!-- Download Button -->
-                        <button id="downloadButton" class="btn btn-primary">Download Refactored Code</button>
                     </div>
+                    <!-- Refactor button -->
+                    <button id="refactorButton" class="btn btn-warning mt-3 btn-sm">Refactor</button>
+                    <!-- Download button -->
+                    <button id="downloadButton" class="btn btn-secondary mt-3 btn-sm">Download Refactored Code</button>
                 </div>
             </div>
         </div>
@@ -48,6 +50,24 @@
 <?php require('templates/footer.phtml') ?>
 
 <script>
+    /**
+     * function to handle editor area and results area
+     * along with the refactor button functionality too
+     */
+    function copyText() {
+        // get the HTML content from the Editor Area
+        var editorHTML = document.getElementById('uploadedDocument').innerHTML;
+
+        // set the obtained HTML content to the Results Area
+        document.getElementById('refactoredCode').innerHTML = editorHTML;
+    }
+
+    // add an event listener to the "Refactor" button
+    document.getElementById('refactorButton').addEventListener('click', function() {
+        // call the copyText function when the button is clicked
+        copyText();
+    });
+
     document.getElementById('fileInput').addEventListener('change', function(event) {
         var file = event.target.files[0];
         var reader = new FileReader();
@@ -58,4 +78,41 @@
 
         reader.readAsText(file);
     });
+
+    /**
+     * allows user to press 'TAB' and indent code within the editor area
+     * rather than alternating browser elements instead
+     */
+    // get the editor display area
+    var editorDisplay = document.getElementById('uploadedDocument');
+
+    // add event listener for keydown event
+    editorDisplay.addEventListener('keydown', function(event) {
+        // check if the pressed key is the TAB key (key code 9)
+        if (event.keyCode === 9) {
+            // prevent the default behavior of the TAB key (jumping to next element)
+            event.preventDefault();
+
+            // get the current selection
+            var selection = window.getSelection();
+
+            // get the selected range
+            var range = selection.getRangeAt(0);
+
+            // create a new text node with the TAB character (whitespace)
+            var tabNode = document.createTextNode('\u00A0\u00A0\u00A0\u00A0'); // You can adjust the number of spaces for the indent
+
+            // insert the text node at the start of the selected range
+            range.insertNode(tabNode);
+
+            // move the cursor position after the inserted tab character
+            range.setStartAfter(tabNode);
+            range.setEndAfter(tabNode);
+
+            // collapse the selection to the end of the range
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    });
 </script>
+
