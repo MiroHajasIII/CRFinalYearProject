@@ -1,149 +1,108 @@
 <?php require('templates/header.phtml') ?>
 
-<!-- PAGE DATA FOUND BELOW -->
-<div id="background">
-    <div class="refactoringContainer">
-        <div class="row">
-            <!-- Document Input Choices -->
-            <div id="documentInputChoices">
-                <h2>Document Input Choices</h2>
-                <!-- GitHub Link Input WIP TODO-->
-                <div class="form-group">
-                    <label for="githubLink">GitHub Link:</label>
-                    <input type="text" class="form-control" id="githubLink" placeholder="Enter GitHub link">
-                </div>
-                <!-- Drag and Drop Area, including multiple file types to be used -->
-                <div id="dragDropArea">
-                    <p>Drag and drop your file here</p>
-                    <input type="file" id="fileInput" accept=".txt, .php, .phtml, .css, .html">
-                </div>
-            </div>
+<div id="documentInputChoices">
+    <h2>Document Input Choices</h2>
+    <!-- GitHub Link Input WIP TODO-->
+    <div class="form-group">
+        <label for="githubLink">GitHub Link:</label>
+        <input type="text" class="form-control" id="githubLink" placeholder="Enter GitHub link">
+    </div>
+    <!-- Drag and Drop Area, including multiple file types to be used -->
+    <div id="dragDropArea">
+        <p>Drag and drop your file here</p>
+        <input type="file" id="fileInput" accept=".txt, .php, .phtml, .css, .html">
+    </div>
+</div>
 
-            <!-- Editor and Results areas -->
-            <div>
-                <div id="textAreas" class="row">
-                    <!-- Editor area -->
-                    <div class="col-md-6">
-                        <!-- Editor display area -->
-                        <div id="editorDisplay">
-                            <h2>Editor Area</h2>
-                            <!-- Display uploaded document here -->
-                            <pre id="uploadedDocument" contenteditable="true"></pre>
-                        </div>
-                    </div>
-                    <!-- Results area -->
-                    <div class="col-md-6">
-                        <h2>Results Area</h2>
-                        <!-- Display refactored code here -->
-                        <pre id="refactoredCode" contenteditable="true"></pre>
-                    </div>
-                    <!-- Refactor button -->
-                    <button id="refactorButton" class="btn btn-warning mt-3 btn-sm">Refactor</button>
-                    <!-- Download button -->
-                    <button id="downloadButton" class="btn btn-secondary mt-3 btn-sm">Download Refactored Code</button>
-                </div>
+<div>
+    <div id="textAreas" class="row">
+        <!-- Editor area -->
+        <div class="col-md-6">
+            <!-- Editor display area -->
+            <div class="testing" id="editorDisplay">
+                <h2>Editor Area</h2>
+                <!-- Display uploaded document here -->
+                <textarea id="codeInput"></textarea>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <!-- Results area -->
+            <div class="testing" id="resultsDisplay">
+                <h2>Results Area</h2>
+                <textarea id="codeOutput"></textarea>
+            </div>
+        </div>
+        <!-- Refactor button -->
+        <button id="refactorButton" class="btn btn-warning mt-3 btn-sm">Refactor</button>
+        <!-- Download button -->
+        <button id="downloadButton" class="btn btn-secondary mt-3 btn-sm">Download Refactored Code</button>
     </div>
 </div>
 
 <?php require('templates/footer.phtml') ?>
 
 <script>
-    /**
-     * function to handle editor area and results area
-     * along with the refactor button functionality too
-     */
-    function copyText() {
-        // get the HTML content from the Editor Area
-        var editorHTML = document.getElementById('uploadedDocument').innerHTML;
+    // Get the textarea elements
+    var codeInput = document.getElementById('codeInput');
+    var codeOutput = document.getElementById('codeOutput');
 
-        // set the obtained HTML content to the Results Area
-        document.getElementById('refactoredCode').innerHTML = editorHTML;
+    // Initialize CodeMirror for codeInput
+    var editorInput = CodeMirror.fromTextArea(codeInput, {
+        lineNumbers: true,
+        mode: 'javascript',
+        theme: 'default'
+    });
+
+    // Initialize CodeMirror for codeOutput
+    var editorOutput = CodeMirror.fromTextArea(codeOutput, {
+        lineNumbers: true,
+        mode: 'javascript',
+        theme: 'default',
+        readOnly: true // Make the output area read-only
+    });
+
+    // Function to handle editor area and results area
+    function copyText() {
+        // Get the code from the editor
+        var code = editorInput.getValue();
+
+        // Set the code to the output area
+        editorOutput.setValue(code);
     }
 
-    // add an event listener to the "Refactor" button
+    // Add event listener to the "Refactor" button
     document.getElementById('refactorButton').addEventListener('click', function() {
-        // call the copyText function when the button is clicked
+        // Call the copyText function when the button is clicked
         copyText();
     });
 
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-        var file = event.target.files[0];
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-            document.getElementById('uploadedDocument').textContent = e.target.result;
-        };
-
-        reader.readAsText(file);
-    });
-
-    /**
-     * allows user to press 'TAB' and indent code within the editor area
-     * rather than alternating browser elements instead
-     */
-    // get the editor display area
-    var editorDisplay = document.getElementById('uploadedDocument');
-
-    // add event listener for keydown event
-    editorDisplay.addEventListener('keydown', function(event) {
-        // check if the pressed key is the TAB key (key code 9)
-        if (event.keyCode === 9) {
-            // prevent the default behavior of the TAB key (jumping to next element)
-            event.preventDefault();
-
-            // get the current selection
-            var selection = window.getSelection();
-
-            // get the selected range
-            var range = selection.getRangeAt(0);
-
-            // create a new text node with the TAB character (whitespace)
-            var tabNode = document.createTextNode('\u00A0\u00A0\u00A0\u00A0'); // You can adjust the number of spaces for the indent
-
-            // insert the text node at the start of the selected range
-            range.insertNode(tabNode);
-
-            // move the cursor position after the inserted tab character
-            range.setStartAfter(tabNode);
-            range.setEndAfter(tabNode);
-
-            // collapse the selection to the end of the range
-            selection.removeAllRanges();
-            selection.addRange(range);
-        }
-    });
-
-    /**
-     * download edited code functionality
-     */
+    // Add event listener to the "Download" button
     document.getElementById('downloadButton').addEventListener('click', function() {
-        // get the contents of the results area with preserved line breaks and formatting
-        var refactoredCode = document.getElementById('refactoredCode').innerText;
+        // Get the code from the output area
+        var code = editorOutput.getValue();
 
-        // create a Blob object containing the text
-        var blob = new Blob([refactoredCode], { type: 'text/plain' });
+        // Create a Blob object containing the code
+        var blob = new Blob([code], { type: 'text/plain' });
 
-        // create a URL for the Blob object
+        // Create a URL for the Blob object
         var url = URL.createObjectURL(blob);
 
-        // create an anchor element with the download attribute set to the desired file name
+        // Create an anchor element with the download attribute set to the desired file name
         var a = document.createElement('a');
         a.href = url;
         a.download = 'refactored_code.txt';
 
-        // append the anchor element to the body
+        // Append the anchor element to the body
         document.body.appendChild(a);
 
-        // simulate a click on the anchor element to trigger the download
+        // Simulate a click on the anchor element to trigger the download
         a.click();
 
-        // remove the anchor element from the body
+        // Remove the anchor element from the body
         document.body.removeChild(a);
 
-        // revoke the URL to release the resources
+        // Revoke the URL to release the resources
         URL.revokeObjectURL(url);
     });
 </script>
-

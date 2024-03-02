@@ -20,4 +20,5 @@ function refactor_code($code) {
     return $code;
 }
 
+
 require_once('Views/refactor.phtml');

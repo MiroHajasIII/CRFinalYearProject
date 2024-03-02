@@ -96,7 +96,6 @@ img {
 /* --- REFACTORING PAGE --- */
 #textAreas {
     align-items: center;
-                                        /*  TODO CHECK IF THIS ACTUALLY DOES SOMETHING  */
 }
 
 /* --- HOVER FORMATS --- */
@@ -190,6 +189,11 @@ img {
     }
 }
 
+.testing {
+    margin: 0 1%;
+}
 
-
+#githubLink {
+    width: 33%;
+}
 
