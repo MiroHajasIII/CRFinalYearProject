@@ -19,7 +19,7 @@
         <!-- Editor area -->
         <div class="col-md-6">
             <!-- Editor display area -->
-            <div class="testing" id="editorDisplay">
+            <div class="codeMirrorTextEditors" id="editorDisplay">
                 <h2>Editor Area</h2>
                 <!-- Display uploaded document here -->
                 <textarea id="codeInput"></textarea>
@@ -28,7 +28,7 @@
 
         <div class="col-md-6">
             <!-- Results area -->
-            <div class="testing" id="resultsDisplay">
+            <div class="codeMirrorTextEditors" id="resultsDisplay">
                 <h2>Results Area</h2>
                 <textarea id="codeOutput"></textarea>
             </div>
@@ -43,6 +43,9 @@
 <?php require('templates/footer.phtml') ?>
 
 <script>
+    /**
+     * logic and variables found below
+     */
     // Get the textarea elements
     var codeInput = document.getElementById('codeInput');
     var codeOutput = document.getElementById('codeOutput');
@@ -51,17 +54,35 @@
     var editorInput = CodeMirror.fromTextArea(codeInput, {
         lineNumbers: true,
         mode: 'javascript',
-        theme: 'default'
+        theme: 'dracula'
     });
 
     // Initialize CodeMirror for codeOutput
     var editorOutput = CodeMirror.fromTextArea(codeOutput, {
         lineNumbers: true,
         mode: 'javascript',
-        theme: 'default',
+        theme: 'dracula',
         readOnly: true // Make the output area read-only
     });
 
+    // load the user chosen file into the CodeMirror text editor area
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        console.log('File selected');
+        var file = event.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            // Set the content of the CodeMirror editor to the loaded file content
+            editorInput.setValue(e.target.result);
+        };
+        reader.readAsText(file);
+    });
+
+
+
+    /**
+     * functions and relative logic found below
+     */
     // Function to handle editor area and results area
     function copyText() {
         // Get the code from the editor
