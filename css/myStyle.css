@@ -135,18 +135,18 @@ img {
 }
 
 /* Update the margin for .refactoringContainer if necessary */
-.refactoringContainer {
-    margin: 0 auto; /* Center the container horizontally */
-}
+/*.refactoringContainer {*/
+/*    margin: 0 auto; !* Center the container horizontally *!*/
+/*}*/
 
 /* --- EDITOR AND RESULTS AREAS --- */
-#uploadedDocument, #refactoredCode {
-    border: 1px solid #6e4f4d;
-    padding: 10px;
-    height: 200px;
-    overflow-y: auto;
-    max-width: 690px;
-}
+/*#uploadedDocument, #refactoredCode {*/
+/*    border: 1px solid #6e4f4d;*/
+/*    padding: 10px;*/                  /* TODO CHECK IF THIS IS EVEN NEEDED AND THE ONE ABOVE
+/*    height: 200px;*/
+/*    overflow-y: auto;*/
+/*    max-width: 690px;*/
+/*}*/
 
 #refactorButton, #downloadButton {
     width: 400px;
@@ -187,6 +187,10 @@ img {
     #aboutUsSection2 {
         margin-bottom: 10vh;
     }
+}
+
+.CodeMirror {
+    height: 400px;
 }
 
 .codeMirrorTextEditors {
