@@ -201,3 +201,11 @@ img {
     width: 33%;
 }
 
+#refactoringOptions {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+}
+#refactoringOptions button {
+    margin: 10px; /* Adjust margin as needed */
+    width: 60%;
+}

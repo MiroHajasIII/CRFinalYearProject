@@ -15,20 +15,29 @@
 </div>
 
 <div>
+    <!-- Buttons for refactoring options -->
+    <div class="centred" id="refactoringOptions">
+        <button class="btn btn-warning" id="renameVariableButton">Variable Rename</button>
+        <button class="btn btn-warning" id="extractMethodButton">Extract Method</button>
+        <button class="btn btn-warning" id="renameFunctionButton">Rename Function</button>
+        <button class="btn btn-warning" id="inlineVariableButton">Inline Variable</button>
+        <button class="btn btn-warning" id="removeUnusedButton">Remove Unused</button>
+    </div>
+
+    <!-- Editor and Results areas -->
     <div id="textAreas" class="row">
         <!-- Editor area -->
         <div class="col-md-6">
             <!-- Editor display area -->
-            <div class="codeMirrorTextEditors" id="editorDisplay">
+            <div class="testing" id="editorDisplay">
                 <h2>Editor Area</h2>
                 <!-- Display uploaded document here -->
                 <textarea id="codeInput"></textarea>
             </div>
         </div>
-
+        <!-- Results area -->
         <div class="col-md-6">
-            <!-- Results area -->
-            <div class="codeMirrorTextEditors" id="resultsDisplay">
+            <div class="testing" id="editorDisplay" >
                 <h2>Results Area</h2>
                 <textarea id="codeOutput"></textarea>
             </div>
@@ -38,6 +47,7 @@
         <!-- Download button -->
         <button id="downloadButton" class="btn btn-secondary mt-3 btn-sm">Download Refactored Code</button>
     </div>
+
 </div>
 
 <?php require('templates/footer.phtml') ?>
