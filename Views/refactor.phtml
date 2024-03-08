@@ -16,12 +16,18 @@
 
 <div>
     <!-- Buttons for refactoring options -->
-    <div class="centred" id="refactoringOptions">
+    <div id="refactoringOptions">
         <button class="btn btn-warning" id="renameVariableButton">Variable Rename</button>
         <button class="btn btn-warning" id="extractMethodButton">Extract Method</button>
         <button class="btn btn-warning" id="renameFunctionButton">Rename Function</button>
         <button class="btn btn-warning" id="inlineVariableButton">Inline Variable</button>
         <button class="btn btn-warning" id="removeUnusedButton">Remove Unused</button>
+    </div>
+    <div id="variableRenameForm">
+        <label for="oldVariableName">Old Variable Name:</label>
+        <input type="text" id="oldVariableNameInput" placeholder="Enter old variable name"><br>
+        <label for="newVariableName">New Variable Name:</label>
+        <input type="text" id="newVariableNameInput" placeholder="Enter new variable name"><br>
     </div>
 
     <!-- Editor and Results areas -->
@@ -43,7 +49,7 @@
             </div>
         </div>
         <!-- Refactor button -->
-        <button id="refactorButton" class="btn btn-warning mt-3 btn-sm">Refactor</button>
+        <button id="refactorButton" class="btn btn-warning mt-3 btn-sm">Set Manual Refactor Changes</button>
         <!-- Download button -->
         <button id="downloadButton" class="btn btn-secondary mt-3 btn-sm">Download Refactored Code</button>
     </div>
@@ -54,7 +60,7 @@
 
 <script>
     /**
-     * logic and variables found below
+     * logic and CodeMirror variables found below
      */
     // Get the textarea elements
     var codeInput = document.getElementById('codeInput');
@@ -102,38 +108,96 @@
         editorOutput.setValue(code);
     }
 
-    // Add event listener to the "Refactor" button
     document.getElementById('refactorButton').addEventListener('click', function() {
-        // Call the copyText function when the button is clicked
+        // call the copyText function when the button is clicked
         copyText();
     });
 
-    // Add event listener to the "Download" button
     document.getElementById('downloadButton').addEventListener('click', function() {
-        // Get the code from the output area
+        // get the code from the output area
         var code = editorOutput.getValue();
 
-        // Create a Blob object containing the code
+        // create a Blob object containing the code
         var blob = new Blob([code], { type: 'text/plain' });
 
-        // Create a URL for the Blob object
+        // create a URL for the Blob object
         var url = URL.createObjectURL(blob);
 
-        // Create an anchor element with the download attribute set to the desired file name
+        // create an anchor element with the download attribute set to the desired file name
         var a = document.createElement('a');
         a.href = url;
         a.download = 'refactored_code.txt';
 
-        // Append the anchor element to the body
+        // append the anchor element to the body
         document.body.appendChild(a);
 
-        // Simulate a click on the anchor element to trigger the download
+        // simulate a click on the anchor element to trigger the download
         a.click();
 
-        // Remove the anchor element from the body
+        // remove the anchor element from the body
         document.body.removeChild(a);
 
-        // Revoke the URL to release the resources
+        // revoke the URL to release the resources
         URL.revokeObjectURL(url);
+    });
+
+
+    /**
+     * rename variable refactoring code area below
+     */
+    document.getElementById('renameVariableButton').addEventListener('click', function() {
+        // retrieve the old and new variable names from the input fields
+        var oldVariableName = document.getElementById('oldVariableNameInput').value;
+        var newVariableName = document.getElementById('newVariableNameInput').value;
+        console.log("newVariableNameInput: " + newVariableName);
+
+        // get the code from the editor
+        var code = editorInput.getValue();
+
+        // refactor the code by renaming the variables
+        var updatedCode = refactorRenameVariable(code, oldVariableName, newVariableName);
+
+        // display the refactored code in the input and output editor
+        editorInput.setValue(updatedCode);
+        editorOutput.setValue(updatedCode);
+    });
+
+    // function to refactor 'rename variable'
+    function refactorRenameVariable(code, oldVariableName, newVariableName) {
+        var regex = new RegExp('\\b' + oldVariableName + '\\b', 'g'); // use word boundaries to match whole words
+        var updatedCode = code.replace(regex, newVariableName);
+
+        return updatedCode;
+    }
+
+    /**
+     * extractMethod functionality code below
+     */
+    document.getElementById('extractMethodButton').addEventListener('click', function() {
+        // get the selected code from the CodeMirror editor
+        var selectedCode = editorInput.getSelection();
+
+        // prompt the user to enter the name of the new method
+        var newMethodName = prompt('Enter the name of the new method:');
+
+        if (newMethodName) {
+            // generate the new method with the selected code
+            var newMethodCode = 'function ' + newMethodName + '() {\n' +
+                selectedCode + '\n' +
+                '}\n';
+
+            // insert the new method code at the cursor position in the editor
+            editorInput.replaceSelection(newMethodCode);
+
+            // replace the selected code with a method call
+            var methodCall = newMethodName + '();';
+            editorInput.replaceSelection(methodCall);
+
+            // update the CodeMirror editor
+            editorOutput.setValue(editorInput.getValue());
+
+            // provide feedback to the user
+            alert('Method "' + newMethodName + '" extracted successfully.');
+        }
     });
 </script>

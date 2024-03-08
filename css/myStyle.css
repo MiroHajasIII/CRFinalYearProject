@@ -96,6 +96,8 @@ img {
 /* --- REFACTORING PAGE --- */
 #textAreas {
     align-items: center;
+    margin-top: 3%;
+    height: 50%;
 }
 
 /* --- HOVER FORMATS --- */
@@ -190,7 +192,7 @@ img {
 }
 
 .CodeMirror {
-    height: 400px;
+    height: auto;
 }
 
 .codeMirrorTextEditors {
@@ -206,6 +208,9 @@ img {
     justify-content: center; /* Center items horizontally */
 }
 #refactoringOptions button {
-    margin: 10px; /* Adjust margin as needed */
+    margin: 5px; /* Adjust margin as needed */
     width: 60%;
+}
+#variableRenameForm {
+    text-align: center;
 }
