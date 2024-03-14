@@ -66,14 +66,14 @@
     var codeInput = document.getElementById('codeInput');
     var codeOutput = document.getElementById('codeOutput');
 
-    // Initialize CodeMirror for codeInput
+    // initialize CodeMirror for the codeInput text area
     var editorInput = CodeMirror.fromTextArea(codeInput, {
         lineNumbers: true,
         mode: 'javascript',
         theme: 'dracula'
     });
 
-    // Initialize CodeMirror for codeOutput
+    // initialize CodeMirror for the codeOutput text area
     var editorOutput = CodeMirror.fromTextArea(codeOutput, {
         lineNumbers: true,
         mode: 'javascript',
@@ -177,27 +177,38 @@
         // get the selected code from the CodeMirror editor
         var selectedCode = editorInput.getSelection();
 
-        // prompt the user to enter the name of the new method
+        // prompt user to enter the name of their new desired method
         var newMethodName = prompt('Enter the name of the new method:');
 
         if (newMethodName) {
+            // split the selected code into lines
+            var lines = selectedCode.split('\n');
+
+            // indent each line with a tab, and retain any already implemented indentations from the code before
+            for (var i = 0; i < lines.length; i++) {
+                lines[i] = '\t' + lines[i]; // prepend a tab to each line
+            }
+
+            // join the lines back together with newline characters
+            var indentedCode = lines.join('\n');
+
             // generate the new method with the selected code
             var newMethodCode = 'function ' + newMethodName + '() {\n' +
-                selectedCode + '\n' +
-                '}\n';
+                indentedCode + '\n' +
+                '}';
+
+            // replace the selected code with a method call
+            var methodCall = newMethodName + '();\n\n';
+            editorInput.replaceSelection(methodCall);
 
             // insert the new method code at the cursor position in the editor
             editorInput.replaceSelection(newMethodCode);
 
-            // replace the selected code with a method call
-            var methodCall = newMethodName + '();';
-            editorInput.replaceSelection(methodCall);
-
             // update the CodeMirror editor
             editorOutput.setValue(editorInput.getValue());
-
-            // provide feedback to the user
+            // feedback for user upon success
             alert('Method "' + newMethodName + '" extracted successfully.');
         }
     });
+
 </script>
