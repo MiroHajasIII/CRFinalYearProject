@@ -211,4 +211,40 @@
         }
     });
 
+    /**
+     * inline variable code below
+     */
+    document.getElementById('inlineVariableButton').addEventListener('click', function() {
+        // retrieve the variable name and value from the user
+        var variableName = prompt('Enter the name of the variable to inline:');
+        var variableValue = prompt('Enter the value to inline for the variable:');
+
+        if (variableName && variableValue) {
+            // get the code from the editor
+            var code = editorInput.getValue();
+
+            // refactor the code by replacing all occurrences of the variable with its value
+            var updatedCode = refactorInlineVariable(code, variableName, variableValue);
+
+            // display the refactored code in the input and output editor
+            editorInput.setValue(updatedCode);
+            editorOutput.setValue(updatedCode);
+
+            // provide feedback to the user
+            alert('Variable "' + variableName + '" inlined successfully.');
+        }
+    });
+
+    // function to refactor 'inline variable'
+    function refactorInlineVariable(code, variableName, variableValue) {
+        // create a regex to match variable declarations
+        var declarationRegex = new RegExp('\\bvar\\s+' + variableName + '\\s*=\\s*.*?;', 'g');
+        // replace all occurrences of variable declarations with comments
+        var updatedCode = code.replace(declarationRegex, '// Variable "' + variableName + '" was declared here.');
+
+        // if the variable is not being declared, replace occurrences with the desired value
+        updatedCode = updatedCode.replace(new RegExp('\\b' + variableName + '\\b', 'g'), variableValue);
+
+        return updatedCode;
+    }
 </script>
