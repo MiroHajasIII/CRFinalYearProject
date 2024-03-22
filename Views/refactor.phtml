@@ -19,9 +19,8 @@
     <div id="refactoringOptions">
         <button class="btn btn-warning" id="renameVariableButton">Variable Rename</button>
         <button class="btn btn-warning" id="extractMethodButton">Extract Method</button>
-        <button class="btn btn-warning" id="renameFunctionButton">Rename Function</button>
         <button class="btn btn-warning" id="inlineVariableButton">Inline Variable</button>
-        <button class="btn btn-warning" id="removeUnusedButton">Remove Unused</button>
+        <button class="btn btn-warning" id="renameFunctionButton">Rename Function</button>
     </div>
     <div id="variableRenameForm">
         <label for="oldVariableName">Old Variable Name:</label>
@@ -93,7 +92,6 @@
         };
         reader.readAsText(file);
     });
-
 
 
     /**
@@ -170,6 +168,7 @@
         return updatedCode;
     }
 
+
     /**
      * extractMethod functionality code below
      */
@@ -210,6 +209,7 @@
             alert('Method "' + newMethodName + '" extracted successfully.');
         }
     });
+
 
     /**
      * inline variable code below
