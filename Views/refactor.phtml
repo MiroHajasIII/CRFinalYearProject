@@ -22,12 +22,6 @@
         <button class="btn btn-warning" id="inlineVariableButton">Inline Variable</button>
         <button class="btn btn-warning" id="renameFunctionButton">Rename Function</button>
     </div>
-    <div id="variableRenameForm">
-        <label for="oldVariableName">Old Variable Name:</label>
-        <input type="text" id="oldVariableNameInput" placeholder="Enter old variable name"><br>
-        <label for="newVariableName">New Variable Name:</label>
-        <input type="text" id="newVariableNameInput" placeholder="Enter new variable name"><br>
-    </div>
 
     <!-- Editor and Results areas -->
     <div id="textAreas" class="row">
@@ -141,28 +135,31 @@
 
 
     /**
-     * rename variable refactoring code area below
+     * variable rename refactoring code area below
      */
     document.getElementById('renameVariableButton').addEventListener('click', function() {
-        // retrieve the old and new variable names from the input fields
-        var oldVariableName = document.getElementById('oldVariableNameInput').value;
-        var newVariableName = document.getElementById('newVariableNameInput').value;
-        console.log("newVariableNameInput: " + newVariableName);
+        // Prompt the user to enter the old variable name
+        var oldVariableName = prompt('Enter the name of the variable to rename:');
+        if (!oldVariableName) return; // Exit if the user cancels or leaves the prompt blank
 
-        // get the code from the editor
+        // Prompt the user to enter the new variable name
+        var newVariableName = prompt('Enter the new name for the variable:');
+        if (!newVariableName) return; // Exit if the user cancels or leaves the prompt blank
+
+        // Get the code from the editor
         var code = editorInput.getValue();
 
-        // refactor the code by renaming the variables
+        // Refactor the code by renaming the variables
         var updatedCode = refactorRenameVariable(code, oldVariableName, newVariableName);
 
-        // display the refactored code in the input and output editor
+        // Display the refactored code in the input and output editor
         editorInput.setValue(updatedCode);
         editorOutput.setValue(updatedCode);
     });
 
-    // function to refactor 'rename variable'
+    // Function to refactor 'rename variable'
     function refactorRenameVariable(code, oldVariableName, newVariableName) {
-        var regex = new RegExp('\\b' + oldVariableName + '\\b', 'g'); // use word boundaries to match whole words
+        var regex = new RegExp('\\b' + oldVariableName + '\\b', 'g'); // Use word boundaries to match whole words
         var updatedCode = code.replace(regex, newVariableName);
 
         return updatedCode;
