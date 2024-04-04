@@ -20,7 +20,14 @@
         <button class="btn btn-warning" id="renameVariableButton">Variable Rename</button>
         <button class="btn btn-warning" id="extractMethodButton">Extract Method</button>
         <button class="btn btn-warning" id="inlineVariableButton">Inline Variable</button>
-        <button class="btn btn-warning" id="renameFunctionButton">Rename Function</button>
+        <button class="btn btn-warning" id="removeUnusedCodeButton">Remove Unused Code</button>
+    </div>
+    <!-- Buttons for help and more information on the refactoring options -->
+    <div id="refactoringOptions">
+        <button class="btn btn-secondary help-button" id="renameVariableHelpButton">Variable Rename Help</button>
+        <button class="btn btn-secondary help-button" id="extractMethodHelpButton">Extract Method Help</button>
+        <button class="btn btn-secondary help-button" id="inlineVariableHelpButton">Inline Variable Help</button>
+        <button class="btn btn-secondary help-button" id="removeUnusedCodeHelpButton">Remove Unused Code Help</button>
     </div>
 
     <!-- Editor and Results areas -->
@@ -52,6 +59,25 @@
 <?php require('templates/footer.phtml') ?>
 
 <script>
+    /**
+     * area for REST GitHub API authentication
+     */
+    import { App } from "@octokit/app";
+    const app = new App({
+        appId: 869888,
+        privateKey: "MIIEpgIBAAKCAQEAxRv+Ls0LCfhNxbN55IzpV4voLjkXJepzG0TipLkGUuy1XXgDz6/Ls+OrPK2iOUcwWGQbNwoYeUwKQyQAX18ntSBCuKVnc5GiFLI4ZWXRX1S3J7rZd97wQTZdFing0te9LhZiSYNMztTOa/FtL7Wn5rCGfV3l+j1l8V1/nRAeBmoSs76rHius8K/wB/L1D9WMvJW9mpXXccGNkVJggguvK/TObYR1+FrxJVUVWkNSCE9M9HqAQkH+9b+4xW7mQwW+EJkpnD3U2Ysg0SEv6C/dgEfT/uk3ASupOxefM0ECdqBlzn8qlaWUoBX3L94M8eQv0oh9nDhRBRTjjgvEl/F/pwIDAQABAoIBAQCh0vqbF9IBTG8ladUgE6QbMQzcrhhYE6SO9b4ROKp9eELqSvbuEsjtlnPmbDMsTUretsk1Jb+0Df664pq/shKafLLqfzlww1bLIQp2DOKZHqcEIj4aUNj04RoJcTZYQ7DYXp4w9nAfus0CCAL5UW1YUwMHeAiwqqnAQF/d5faQkiEU71Dvgu0QIr/DJAQTupCGnXvyGQ6rEj3LEm8UUhQSI4QGYWlnSwv4hULYnr+lMYe5qhVKgPGoO49vwlEyFsyC//zUaN4kyWyqE04xg9iLSzOBKA3xgZ5lzRKXwglyXlbjdV9M/r2V8vGN8r9a5cVOsTZPryWRV2CJ9uT7HMRBAoGBAPW79Z/h5cwCQOarHph43jVwcEB3AfLEogWaMmaEA47LlXAYPDiZ9zU7ieUhqcL4oEepdkLe6TOu3PldH3HvexjPqKUaABQU0esORDkoANICktTW9bNTYvq0M90XBv4CITmyDfh1s1wCLrpn38G0crZT2Irrl7xM6lxBOK0BD/zhAoGBAM1YAfVx6hh4ZmzbJg8VmZguLR4sPyMCWi2LVn35NhJliqaI/ATSfEnVqW3dhB+FhbVBHInpZTsBn6X16EUBwffAkrrybzkmeOeP9olS+ZlPTKlDrEh1hgiBuZ/99CfmT+HRLhw46mHRL7ebhQSNofdjJV5meQ5A4WoCOlH+KsWHAoGBAM+A+cgZ7H+aQ43FYB+mqRV9LfzxwZ5r9tk+PWMeBRcWyMkQXgH52auE7EulYoH2ivoYmnmbXFc9SPH1dfEzJcJs0F8iloBemGih8nBFXHP6olzCbFYSixljBAylPk1OJRpgRbXSRjPiz+yufF9I7jkSkl+007u5Q4nFtYM5y3NhAoGBALj1d7Y0aE6oTGHqt4pIw3OOzDbsVeZb3Qw/AKYxjmHdspi0tIRHb4o1+QmryLF33GrZ/jG+197hZILhT9iwb52QiNn5OvO4UpkJVGB3K7nK8ttXyFvv9827w453+a7ixbs6ZpUnMv7upFN2ssbaKDSjymoQVSPgjumknhFypeYLAoGBAM3h6JVl2OV0TH+t5dFRLbJBDfrITYO/LlXpNbHz7FjJg4nvlqkhAQdzh1fcEfHkTptqWgqfN7IOQmwnuLnMJWPaNK2AZaSwKqvEpdSdRpRm9zbazCkPFokPJ9hocxzHThvGe4yRsK0oNLsKAkOHDMU182xsyibtq8XVQ2iY+Efb",
+    });
+
+    async function getOctokitForInstallation(installationId) {
+        try {
+            const octokit = await app.getInstallationOctokit(installationId);
+            return octokit;
+        } catch (error) {
+            console.error("Error acquiring Octokit for installation process:", error);
+            throw error;
+        }
+    }
+
     /**
      * logic and CodeMirror variables found below
      */
@@ -138,26 +164,26 @@
      * variable rename refactoring code area below
      */
     document.getElementById('renameVariableButton').addEventListener('click', function() {
-        // Prompt the user to enter the old variable name
+        // prompt user to enter the old variable name
         var oldVariableName = prompt('Enter the name of the variable to rename:');
         if (!oldVariableName) return; // Exit if the user cancels or leaves the prompt blank
 
-        // Prompt the user to enter the new variable name
+        // prompt user to enter the new variable name
         var newVariableName = prompt('Enter the new name for the variable:');
         if (!newVariableName) return; // Exit if the user cancels or leaves the prompt blank
 
-        // Get the code from the editor
+        // get code from the editor
         var code = editorInput.getValue();
 
-        // Refactor the code by renaming the variables
+        // refactor code by renaming the variables
         var updatedCode = refactorRenameVariable(code, oldVariableName, newVariableName);
 
-        // Display the refactored code in the input and output editor
+        // display refactored code in the input and output editor
         editorInput.setValue(updatedCode);
         editorOutput.setValue(updatedCode);
     });
 
-    // Function to refactor 'rename variable'
+    // function to refactor 'rename variable'
     function refactorRenameVariable(code, oldVariableName, newVariableName) {
         var regex = new RegExp('\\b' + oldVariableName + '\\b', 'g'); // Use word boundaries to match whole words
         var updatedCode = code.replace(regex, newVariableName);
@@ -244,4 +270,167 @@
 
         return updatedCode;
     }
+
+
+    /**
+     * remove unused code functionality bellow
+     */
+// function to remove unused variables, functions, and classes from the code
+    function removeUnusedCode() {
+        var code = editorInput.getValue();
+
+        // identify and remove unused variables
+        code = removeUnusedVariables(code);
+
+        // identify and remove unused functions
+        code = removeUnusedFunctions(code);
+
+        // identify and remove unused classes
+        code = removeUnusedClasses(code);
+
+        // update the editor with the modified code
+        editorInput.setValue(code);
+        editorOutput.setValue(code);
+    }
+
+    // function to remove unused variables from the code
+    function removeUnusedVariables(code) {
+        // define a regular expression to match variable declarations
+        var declarationRegex = /\b(var|let|const)\s+(\w+)\s*=/g;
+
+        // find all variable declarations in the code
+        var matches = code.match(declarationRegex);
+
+        // if no matches found, return the original code
+        if (!matches) {
+            return code;
+        }
+
+        // iterate over the matches and remove declarations of unused variables
+        matches.forEach(function (match) {
+            var variableName = match.split(/\s+/)[1]; // Extract variable name
+            var regex = new RegExp('\\b' + escapeRegExp(variableName) + '\\b', 'g'); // Escape special characters
+
+            // check if the variable is used in the code
+            if (!code.match(regex)) {
+                // if not used, remove the variable declaration
+                code = code.replace(new RegExp('\\b' + escapeRegExp(match) + ';?\\s*', 'g'), '');
+            }
+        });
+
+        return code;
+    }
+
+    // function to remove unused functions from the code
+    function removeUnusedFunctions(code) {
+        // define a regular expression to match function declarations
+        var declarationRegex = /\bfunction\s+(\w+)\s*\(/g;
+
+        // find all function declarations in the code
+        var matches = code.match(declarationRegex);
+
+        // if no matches found, return the original code
+        if (!matches) {
+            return code;
+        }
+
+        // iterate over the matches and remove declarations of unused functions
+        matches.forEach(function (match) {
+            var functionName = match.split(/\s+/)[1]; // Extract function name
+            var regex = new RegExp('\\b' + escapeRegExp(functionName) + '\\b', 'g'); // Escape special characters
+
+            if (!code.match(regex)) {
+                // if not used, remove the function declaration
+                code = code.replace(new RegExp('\\b' + escapeRegExp(match) + '\\s*{[^{}]*}\\s*', 'g'), '');
+            }
+        });
+
+        return code;
+    }
+
+    // function to remove unused classes from the code
+    function removeUnusedClasses(code) {
+        // define a regular expression to match class declarations
+        var declarationRegex = /\bclass\s+(\w+)\s*{/g;
+
+        // find all class declarations in the code
+        var matches = code.match(declarationRegex);
+
+        // if no matches found, return the original code
+        if (!matches) {
+            return code;
+        }
+
+        // iterate over the matches and remove declarations of unused classes
+        matches.forEach(function (match) {
+            var className = match.split(/\s+/)[1]; // Extract class name
+            var regex = new RegExp('\\b' + escapeRegExp(className) + '\\b', 'g'); // Escape special characters
+
+            // check if the class is used in the code
+            if (!code.match(regex)) {
+                // if not used, remove the class declaration
+                code = code.replace(new RegExp('\\b' + escapeRegExp(match) + '[^{}]*{[^{}]*}\\s*', 'g'), '');
+            }
+        });
+        return code;
+    }
+
+    // add event listener to the removeUnusedCodeButton
+    document.getElementById('removeUnusedCodeButton').addEventListener('click', removeUnusedCode);
+
+    // function to escape special characters in a string to be used in a regular expression
+    function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    }
+
+
+
+    /**
+     * Help dialogs for refactoring options
+     */
+    document.querySelectorAll('.help-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var option = button.textContent.trim();
+            var helpText = '';
+
+            switch (option) {
+                case 'Variable Rename Help':
+                    helpText = 'This option allows you to rename a variable throughout your code. ' +
+                        'Enter the old variable name and then the new variable name.' +
+                        '\n\nFor example:\n' +
+                        'To change all the occurrences of "method1()" to "finalMethod()" in your code, you can ' +
+                        'set "method1()" as the target variable name, and "finalMethod()" as the name to overwrite this ' +
+                        'with. Every instance of "method1()" within your code will then be changed to "finalMethod()"';
+                    break;
+                case 'Extract Method Help':
+                    helpText = 'This option helps you extract a block of code into a new method. ' +
+                        'Select the code you want to extract and enter the name of the new method.' +
+                        '\n\nFor example:\n' +
+                        'If you have a function that performs multiple steps to calculate a result. ' +
+                        'Instead of having all those steps in one large function, you can use "Extract ' +
+                        'Method" to create a new function for a specific subset of those steps. ' +
+                        'This makes the code easier to read, understand, and maintain.';
+                    break;
+                case 'Inline Variable Help':
+                    helpText = 'This option enables you to inline a variable by replacing all its occurrences with a value. ' +
+                        'Enter the variable name and the value to inline.' +
+                        '\n\nFor example:\n' +
+                        'Suppose you have a variable named "discountPercentage" that is used multiple ' +
+                        'times in your code to calculate discounted prices. Instead of keeping ' +
+                        '"discountPercentage" as a separate variable throughout your code, you can use ' +
+                        '"Inline Variable" to replace all instances of "discountPercentage" with its actual ' +
+                        'value, such as 0.10 for a 10% discount, and comment out the original declaration of ' +
+                        'the variable as well.';
+                    break;
+                case 'Remove Unused Code Help':
+                    helpText = 'This option allows you to rename a function throughout your code. ' +
+                        'Enter the old function name and then the new function name.';
+                    break;
+                default:
+                    helpText = 'Help information not available.';
+            }
+
+            alert(helpText);
+        });
+    });
 </script>
