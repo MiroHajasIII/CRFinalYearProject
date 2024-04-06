@@ -19,6 +19,8 @@
     <!-- Match Brackets Add-on -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/addon/edit/matchbrackets.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/dracula.min.css">
+    <!-- JavaScript source tage -->
+    <script src="js/refactorJS.js" type="module"></script>
 
     <title><?php echo $view->pageTitle; ?></title>
 </head>
@@ -32,6 +34,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li id="hoverable" class="nav-item">
+                        <a class="nav-link text-primary" href="sign-in.php">Sign in/out</a>
+                    </li>
                     <li id="hoverable" class="nav-item">
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
