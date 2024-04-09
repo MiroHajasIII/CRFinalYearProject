@@ -213,37 +213,24 @@ function refactorInlineVariable(code, variableName, variableValue) {
 /**
  * remove unused code functionality bellow
  */
-// function to remove unused variables, functions, and classes from the code
-function removeUnusedCode() {
-    var code = editorInput.getValue();
+document.getElementById('removeUnusedCodeButton').addEventListener('click', function() {
+    removeUnusedCode();
+});
 
-    // identify and remove unused variables
-    code = removeUnusedVariables(code);
-
-    // identify and remove unused functions
-    code = removeUnusedFunctions(code);
-
-    // identify and remove unused classes
-    code = removeUnusedClasses(code);
-
-    // update the editor with the modified code
-    editorInput.setValue(code);
-    editorOutput.setValue(code);
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 // function to remove unused variables from the code
 function removeUnusedVariables(code) {
     // define a regular expression to match variable declarations
     var declarationRegex = /\b(var|let|const)\s+(\w+)\s*=/g;
-
     // find all variable declarations in the code
     var matches = code.match(declarationRegex);
-
     // if no matches found, return the original code
     if (!matches) {
         return code;
     }
-
     // iterate over the matches and remove declarations of unused variables
     matches.forEach(function (match) {
         var variableName = match.split(/\s+/)[1]; // Extract variable name
@@ -255,70 +242,17 @@ function removeUnusedVariables(code) {
             code = code.replace(new RegExp('\\b' + escapeRegExp(match) + ';?\\s*', 'g'), '');
         }
     });
-
     return code;
 }
 
-// function to remove unused functions from the code
-function removeUnusedFunctions(code) {
-    // define a regular expression to match function declarations
-    var declarationRegex = /\bfunction\s+(\w+)\s*\(/g;
-
-    // find all function declarations in the code
-    var matches = code.match(declarationRegex);
-
-    // if no matches found, return the original code
-    if (!matches) {
-        return code;
-    }
-
-    // iterate over the matches and remove declarations of unused functions
-    matches.forEach(function (match) {
-        var functionName = match.split(/\s+/)[1]; // Extract function name
-        var regex = new RegExp('\\b' + escapeRegExp(functionName) + '\\b', 'g'); // Escape special characters
-
-        if (!code.match(regex)) {
-            // if not used, remove the function declaration
-            code = code.replace(new RegExp('\\b' + escapeRegExp(match) + '\\s*{[^{}]*}\\s*', 'g'), '');
-        }
-    });
-
-    return code;
-}
-
-// function to remove unused classes from the code
-function removeUnusedClasses(code) {
-    // define a regular expression to match class declarations
-    var declarationRegex = /\bclass\s+(\w+)\s*{/g;
-
-    // find all class declarations in the code
-    var matches = code.match(declarationRegex);
-
-    // if no matches found, return the original code
-    if (!matches) {
-        return code;
-    }
-
-    // iterate over the matches and remove declarations of unused classes
-    matches.forEach(function (match) {
-        var className = match.split(/\s+/)[1]; // Extract class name
-        var regex = new RegExp('\\b' + escapeRegExp(className) + '\\b', 'g'); // Escape special characters
-
-        // check if the class is used in the code
-        if (!code.match(regex)) {
-            // if not used, remove the class declaration
-            code = code.replace(new RegExp('\\b' + escapeRegExp(match) + '[^{}]*{[^{}]*}\\s*', 'g'), '');
-        }
-    });
-    return code;
-}
-
-// add event listener to the removeUnusedCodeButton
-document.getElementById('removeUnusedCodeButton').addEventListener('click', removeUnusedCode);
-
-// function to escape special characters in a string to be used in a regular expression
-function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+// function to remove unused code
+function removeUnusedCode() {
+    var code = editorInput.getValue();
+    // identify and remove unused variables
+    code = removeUnusedVariables(code);
+    // update the editor with the modified code
+    editorInput.setValue(code);
+    editorOutput.setValue(code);
 }
 
 
