@@ -63,6 +63,8 @@ class Database {
 
         if ($user && password_verify($password, $user['password'])) {
             return $user;
+            // set session as true after successful login
+            $_SESSION['LoggedIn'] = true;
         } else {
             return false;
         }

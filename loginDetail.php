@@ -1,8 +1,11 @@
 <?php
-// Include the Database class
+// include the Database class
 require_once 'Models/database.php';
 
-// Check if the form was submitted
+// start the session
+session_start();
+
+// check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
     $username = $_POST['username'];
@@ -26,10 +29,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // verify password
     if ($user && password_verify($password, $user['password'])) {
+        // Set session variables
+        $_SESSION['username'] = $username;
+
+        // Set session cookie
+        setcookie("username", $username, time() + (86400 * 30), "/"); // 86400 = 1 day
+        console.log("verify password before completion");
         header("Location: index.php");
         exit();
     } else {
         echo "Invalid username or password.";
     }
 }
-?>

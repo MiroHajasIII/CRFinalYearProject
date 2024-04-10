@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // get database connection
     $pdo = $db->getdbConnection();
 
-    // Check if username already exists
+    // check if Username already exists
     $stmt_check_username = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
     $stmt_check_username->execute([$username]);
     $count = $stmt_check_username->fetchColumn();
@@ -27,9 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Username already exists, display error message
         echo "<script>alert('Username already exists. Please choose a different username.');</script>";
         echo "<script>window.location.href = 'loginPage.php';</script>"; // redirect user after dismissing the message prompt
+        exit; // stop further execution for security reasons
     } else {
-        // Username is available, proceed with registration
-        // prepare SQL statement
+        // if Username is available, proceed with registration
         $stmt = $pdo->prepare("INSERT INTO users (username, fullname, password, phone_number) VALUES (?, ?, ?, ?)");
 
         // bind parameters
@@ -43,7 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<script>window.location.href = 'loginPage.php';</script>"; // redirect user after dismissing the message prompt
             exit; // stop further execution for security reasons
         } else {
-            echo "Error: Unable to register user.";
+            echo "Error: Unable to register user.\n\n
+            Please contact server admins with Error: ACR1";
         }
     }
 }

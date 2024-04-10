@@ -1,8 +1,13 @@
 <?php
 $view = new stdClass();
-$view->pageTitle = 'Sign In';
+$view->pageTitle = 'Login';
 
-// area for implementing more logic once needed
-// logic ideas: user login logic
+session_start();
+
+if (isset($_POST['logoutButton'])){
+    unset($_SESSION['LoggedIn']);
+    session_destroy();
+    header('');
+}
 
 require_once('Views/loginPage.phtml');

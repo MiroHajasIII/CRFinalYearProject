@@ -20,9 +20,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/addon/edit/matchbrackets.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/dracula.min.css">
     <!-- JavaScript source tage -->
-    <script src="js/refactorJS.js" type="module"></script>
+    <script src="../../js/refactor.js" type="module"></script>
+    <!-- Session JavaScript code file path -->
+    <script src="../../js/session.js"></script>
 
     <title><?php echo $view->pageTitle; ?></title>
+    <!-- Begin session start from header to use cookies and login / logout functionality -->
+    <?php session_start(); ?>
+
 </head>
 <body class="d-flex flex-column h-100">
 <header>
@@ -34,9 +39,19 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li id="hoverable" class="nav-item">
-                        <a class="nav-link text-primary" href="../../loginPage.php">Sign in/out</a>
-                    </li>
+                    <!-- Conditional display of login/logout button -->
+                    <?php if(isset($_SESSION['username'])): ?>
+                        <!-- If logged in, display logout button -->
+                        <li id="hoverable" class="nav-item">
+                            <a class="nav-link text-primary" href="../../loginPage.php">Logout</a>
+                        </li>
+                    <?php else: ?>
+                        <!-- If not logged in, display login button -->
+                        <li id="hoverable" class="nav-item">
+                            <a class="nav-link text-primary" href="../../loginPage.php">Login</a>
+                        </li>
+                    <?php endif; ?>
+                    <!-- Other navigation links -->
                     <li id="hoverable" class="nav-item">
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
@@ -54,6 +69,8 @@
         </div>
     </nav>
 </header>
+
+<?php echo $_SESSION['username'] ?>
 
 <!-- ACTUAL PAGE CONTENT TO BE FOUND BELOW -->
 <!-- TODO Check over to see if these bootstrap settings look good or not-->
