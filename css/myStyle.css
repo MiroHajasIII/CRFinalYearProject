@@ -239,3 +239,9 @@ input[type="submit"] {
     border-radius: 5px;
     cursor: pointer;
 }
+#logoutButton {
+    margin: auto;
+}
+#logoutTitle {
+    margin-top: 20%;
+}

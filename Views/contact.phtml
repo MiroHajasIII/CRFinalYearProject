@@ -9,7 +9,9 @@
                 <form action="#" method="POST">
                     <div class="form-group">
                         <label for="name">Your Name:</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <!-- populate the value of the input field with the username if set for user's convenience -->
+                        <input type="text" class="form-control" id="name" name="name" required
+                               value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?>">
                     </div>
                     <div class="form-group">
                         <label for="email">Your Email:</label>
@@ -17,7 +19,8 @@
                     </div>
                     <div class="form-group">
                         <label for="message">Message:</label>
-                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                        <!-- Populate the value of the textarea with the default message -->
+                        <textarea class="form-control" id="message" name="message" rows="5" required><?php echo isset($_SESSION['username']) ? "Hello, {$_SESSION['username']} here!\n\nI really liked how / I think you could improve the experience with..." : ''; ?></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Submit</button>
                 </form>

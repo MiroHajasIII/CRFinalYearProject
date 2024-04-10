@@ -2,12 +2,14 @@
 $view = new stdClass();
 $view->pageTitle = 'Login';
 
-session_start();
+// check if the session has already been started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (isset($_POST['logoutButton'])){
     unset($_SESSION['LoggedIn']);
     session_destroy();
-    header('');
 }
 
 require_once('Views/loginPage.phtml');

@@ -21,12 +21,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/dracula.min.css">
     <!-- JavaScript source tage -->
     <script src="../../js/refactor.js" type="module"></script>
-    <!-- Session JavaScript code file path -->
-    <script src="../../js/session.js"></script>
 
     <title><?php echo $view->pageTitle; ?></title>
     <!-- Begin session start from header to use cookies and login / logout functionality -->
-    <?php session_start(); ?>
+    <?php // check if the session has already been started
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    } ?>
 
 </head>
 <body class="d-flex flex-column h-100">
@@ -70,7 +71,8 @@
     </nav>
 </header>
 
-<?php echo $_SESSION['username'] ?>
+<!-- PHP STATEMENT USED FOR TESTING ONLY -->
+<?php //echo $_SESSION['username'] ?>
 
 <!-- ACTUAL PAGE CONTENT TO BE FOUND BELOW -->
 <!-- TODO Check over to see if these bootstrap settings look good or not-->

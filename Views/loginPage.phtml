@@ -4,10 +4,10 @@
 <?php if(isset($_SESSION['username'])): ?>
     <!-- User is logged in, show logout section -->
     <div class="user-info">
-        <h2>Welcome, <?php echo $_SESSION['username']; ?></h2>
+        <h2 id="logoutTitle">Welcome, <?php echo $_SESSION['username']; ?></h2>
         <!-- Logout Button -->
         <form action="../loginPage.php" method="POST">
-            <input type="submit" name="logoutButton" value="Logout">
+            <input id="logoutButton" type="submit" name="logoutButton" value="Logout">
         </form>
     </div>
 <?php else: ?>
