@@ -20,7 +20,7 @@ class Database {
         $host = 'poseidon.salford.ac.uk';
         $dbName = 'agd916_codesculptor';
 
-        if(self::$_dbInstance === null) { //checks if the PDO exists
+        if(self::$_dbInstance === null) { // checks if the PDO exists
             // creates new instance if not, sending in connection info
             self::$_dbInstance = new self($username, $password, $host, $dbName);
         }
@@ -47,11 +47,11 @@ class Database {
      * @return PDO
      */
     public function getdbConnection() {
-        return $this->_dbHandle; // returns the PDO handle to be used elsewhere
+        return $this->_dbHandle;
     }
 
     public function __destruct() {
-        $this->_dbHandle = null; // destroys the PDO handle when no longer needed
+        $this->_dbHandle = null;
     }
 
     public function loginUser($username, $password) {
@@ -62,16 +62,13 @@ class Database {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password'])) {
-            // Password is correct, return user data
             return $user;
         } else {
-            // Either username doesn't exist or password is incorrect
             return false;
         }
     }
 
     public function registerUser($username, $fullname, $password, $phone_number) {
-        // hashes the password before storing in the database
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO users (username, fullname, password, phone_number) VALUES (:username, :fullname, :password, :phone_number)";
@@ -81,6 +78,6 @@ class Database {
         $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
         $stmt->bindParam(':phone_number', $phone_number, PDO::PARAM_STR);
 
-        return $stmt->execute(); // Returns true on success, false on failure
+        return $stmt->execute();
     }
 }
