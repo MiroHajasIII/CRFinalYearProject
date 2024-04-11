@@ -239,3 +239,9 @@ input[type="submit"] {
     border-radius: 5px;
     cursor: pointer;
 }
+#loginButtonArea {
+    margin-top: 20%;
+}
+#loginButton {
+    margin: auto;
+}

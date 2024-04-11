@@ -1,21 +1,3 @@
-// --- CODE COMMENTED DUE TO DIFFICULTY OF IMPLEMENTATION ---
-// import { Octokit, App } from "https://esm.sh/octokit";
-//
-// const app = new App({
-//     appId: 869888,
-//     privateKey: "",
-// });
-//
-// async function getOctokitForInstallation(installationId) {
-//     try {
-//         const octokit = await app.getInstallationOctokit(installationId);
-//         return octokit;
-//     } catch (error) {
-//         console.error("Error acquiring Octokit for installation process:", error);
-//         throw error;
-//     }
-// }
-
 /**
  * logic and CodeMirror variables found below
  */
