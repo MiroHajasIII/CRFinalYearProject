@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $count = $stmt_check_username->fetchColumn();
 
     if ($count > 0) {
-        // Username already exists, display error message
+        // username already exists, display error message
         echo "<script>alert('Username already exists. Please choose a different username.');</script>";
         echo "<script>window.location.href = 'loginPage.php';</script>"; // redirect user after dismissing the message prompt
         exit; // stop further execution for security reasons
