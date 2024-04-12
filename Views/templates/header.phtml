@@ -20,9 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/addon/edit/matchbrackets.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/dracula.min.css">
     <!-- JavaScript source tage -->
-    <script src="../../js/refactor.js" type="module"></script>
-    <!-- Session JavaScript code file path -->
-    <script src="../../js/session.js"></script>
+    <script src="js/refactor.js" type="module"></script>  <!-- MAYBE DELETE THE TYPE -->
 
     <title><?php echo $view->pageTitle; ?></title>
     <!-- Begin session start from header to use cookies and login / logout functionality -->
@@ -45,12 +43,12 @@
                     <?php if(isset($_SESSION['username'])): ?>
                         <!-- If logged in, display logout button -->
                         <li id="hoverable" class="nav-item">
-                            <a class="nav-link text-primary" href="../../loginPage.php">Logout</a>
+                            <a class="nav-link text-primary" href="loginPage.php">Logout</a>
                         </li>
                     <?php else: ?>
                         <!-- If not logged in, display login button -->
                         <li id="hoverable" class="nav-item">
-                            <a class="nav-link text-primary" href="../../loginPage.php">Login</a>
+                            <a class="nav-link text-primary" href="loginPage.php">Login</a>
                         </li>
                     <?php endif; ?>
                     <!-- Other navigation links -->

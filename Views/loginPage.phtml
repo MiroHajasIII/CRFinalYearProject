@@ -6,7 +6,7 @@
     <div id="loginButtonArea" class="user-info">
         <h2>Welcome, <?php echo $_SESSION['username']; ?></h2>
         <!-- Logout Button -->
-        <form action="../loginPage.php" method="POST">
+        <form action="loginPage.php" method="POST">
             <input id="loginButton" type="submit" name="logoutButton" value="Logout">
         </form>
     </div>
@@ -14,7 +14,7 @@
     <!-- User is not logged in, show login and registration forms -->
     <!-- LOGIN -->
     <h2 id="sign-in_Titles">User Login</h2>
-    <form action="../loginDetail.php" method="POST">
+    <form action="loginDetail.php" method="POST">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <label for="password">Password:</label>

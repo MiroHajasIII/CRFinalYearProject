@@ -27,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // set session cookie
         setcookie("username", $username, time() + (86400 * 30), "/"); // timer for 1 day * 30
-        console.log("verify password before completion");
         header("Location: index.php");
         exit();
     } else {
