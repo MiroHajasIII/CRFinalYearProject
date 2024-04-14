@@ -35,12 +35,13 @@ h1, h2 {
 
 /* --- BACKGROUND IDS --- */
 #background {
-    position: absolute;
+    position: relative;
     left: 0;
     width: 100%;
-    height: calc(100% - 60px);
+    /*height: calc(100% - 60px);*/  /* COMMENTED OUT FOR TESTING PURPOSES */
     display: flex;
     align-items: center;
+    padding-top: 15%;
 }
 #fixedBackground {
     position: fixed;
@@ -54,15 +55,15 @@ h1, h2 {
 
 /* --- NAVBAR & FOOTER --- */
 .navbar {
-    z-index: 1; /* set z index to ensure it's above the background */
+    z-index: 1; /* set z index so it's above the background */
     background-color: #ececec;
 }
 li {
     margin: 2px;
 }
 footer {
-    position: fixed; /* Change to fixed */
-    bottom: 0; /* Align to bottom of viewport */
+    position: fixed;
+    bottom: 0;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.1);
     padding: 5px;
@@ -76,7 +77,7 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
-    /*margin-bottom: 10%;*/
+    /*margin-bottom: 10%;*/ /* COMMENTED OUT FOR TESTING PURPOSES */
 }
 #codingGif {
     margin-top: 10%;
@@ -90,6 +91,7 @@ img {
     padding-right: 20px;
 }
 #cardsCollections {
+    margin-top: 5%;
     margin-bottom: 10vh;
 }
 
@@ -135,20 +137,6 @@ img {
     padding-bottom: 0;
 }
 
-/* Update the margin for .refactoringContainer if necessary */
-/*.refactoringContainer {*/
-/*    margin: 0 auto; !* Center the container horizontally *!*/
-/*}*/
-
-/* --- EDITOR AND RESULTS AREAS --- */
-/*#uploadedDocument, #refactoredCode {*/
-/*    border: 1px solid #6e4f4d;*/
-/*    padding: 10px;*/                  /* TODO CHECK IF THIS IS EVEN NEEDED AND THE ONE ABOVE
-/*    height: 200px;*/
-/*    overflow-y: auto;*/
-/*    max-width: 690px;*/
-/*}*/
-
 #refactorButton, #downloadButton {
     width: 400px;
     margin: 0 auto;
@@ -156,27 +144,27 @@ img {
     margin-bottom: 10%;
 }
 
-/* --- MEDIA TAGS --- */
-@media (max-width: 991px) {
-    #image-container {
-        display: none;
-    }
-    #text-container {
-        margin-top: 5vh;
-    }
-    #downloadButton {
-        margin: 20% auto;
-    }
-    #documentInputChoices {
-        margin-top: 25vh;
-    }
-    #aboutUsSection1 {
-        margin-top: 75vh;
-    }
-    #aboutUsSection2 {
-        margin-bottom: 10vh;
-    }
-}
+ /*--- MEDIA TAGS --- */
+/*@media (max-width: 991px) {*/
+/*    #image-container {*/
+/*        display: none;*/
+/*    }*/
+/*    #text-container {*/
+/*        margin-top: 5vh;*/
+/*    }*/
+/*    #downloadButton {*/
+/*        margin: 20% auto;*/
+/*    }*/
+/*    #documentInputChoices {*/
+/*        margin-top: 25vh;*/
+/*    }*/
+/*    #aboutUsSection1 {*/
+/*        margin-top: 75vh;*/
+/*    }*/
+/*    #aboutUsSection2 {*/
+/*        margin-bottom: 10vh;*/
+/*    }*/
+/*}*/
 
 @media (min-width: 992px) {
     #text-container {
@@ -184,10 +172,10 @@ img {
         margin-top: 0;
     }
     div.container {
-        padding-top: 50%;
+        padding-top: 5%;
     }
-    #aboutUsSection2 {
-        margin-bottom: 10vh;
+    #aboutUsSection2, #loginForm {
+        margin-bottom: 10%;
     }
 }
 
@@ -205,10 +193,10 @@ img {
 
 #refactoringOptions {
     display: flex;
-    justify-content: center; /* Center items horizontally */
+    justify-content: center;
 }
 #refactoringOptions button {
-    margin: 5px; /* Adjust margin as needed */
+    margin: 5px;
     width: 60%;
 }
 #variableRenameForm {

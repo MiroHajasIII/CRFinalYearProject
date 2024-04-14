@@ -13,27 +13,29 @@
 <?php else: ?>
     <!-- User is not logged in, show login and registration forms -->
     <!-- LOGIN -->
-    <h2 id="sign-in_Titles">User Login</h2>
-    <form action="loginDetail.php" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <input type="submit" name="loginButton" value="Login">
-    </form>
+    <div id="loginForm">
+        <h2 id="sign-in_Titles">User Login</h2>
+        <form action="loginDetail.php" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <input type="submit" name="loginButton" value="Login">
+        </form>
 
-    <h2 id="sign-in_Titles">User Registration</h2>
-    <form action="register.php" method="POST">
-        <label for="reg_username">Username:</label>
-        <input type="text" id="reg_username" name="reg_username" required>
-        <label for="fullname">Full Name:</label>
-        <input type="text" id="fullname" name="fullname" required>
-        <label for="reg_password">Password:</label>
-        <input type="password" id="reg_password" name="reg_password" required>
-        <label for="phone_number">Phone Number: <span class="text-warning">(optional)</span></label>
-        <input type="text" id="phone_number" name="phone_number">
-        <input type="submit" value="Register">
-    </form>
+        <h2 id="sign-in_Titles">User Registration</h2>
+        <form action="register.php" method="POST">
+            <label for="reg_username">Username:</label>
+            <input type="text" id="reg_username" name="reg_username" required>
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="fullname" required>
+            <label for="reg_password">Password:</label>
+            <input type="password" id="reg_password" name="reg_password" required>
+            <label for="phone_number">Phone Number: <span class="text-warning">(optional)</span></label>
+            <input type="text" id="phone_number" name="phone_number">
+            <input type="submit" value="Register">
+        </form>
+    </div>
 <?php endif; ?>
 
 <?php require('templates/footer.phtml') ?>

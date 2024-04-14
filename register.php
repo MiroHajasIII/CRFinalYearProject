@@ -13,9 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // hash the password for security
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // create a new instance of the Database class
+    // create a new instance of the Database class and get database connection
     $db = Database::getInstance();
-    // get database connection
     $pdo = $db->getdbConnection();
 
     // check if Username already exists

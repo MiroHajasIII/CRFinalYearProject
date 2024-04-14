@@ -21,7 +21,6 @@ class Database {
         $dbName = 'agd916_codesculptor';
 
         if(self::$_dbInstance === null) { // checks if the PDO exists
-            // creates new instance if not, sending in connection info
             self::$_dbInstance = new self($username, $password, $host, $dbName);
         }
 

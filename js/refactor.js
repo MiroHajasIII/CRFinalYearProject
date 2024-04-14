@@ -5,14 +5,14 @@
 var codeInput = document.getElementById('codeInput');
 var codeOutput = document.getElementById('codeOutput');
 
-// initialize CodeMirror for the codeInput text area
+// initialise CodeMirror for the codeInput text area
 var editorInput = CodeMirror.fromTextArea(codeInput, {
     lineNumbers: true,
     mode: 'javascript',
     theme: 'dracula'
 });
 
-// initialize CodeMirror for the codeOutput text area
+// initialise CodeMirror for the codeOutput text area
 var editorOutput = CodeMirror.fromTextArea(codeOutput, {
     lineNumbers: true,
     mode: 'javascript',
@@ -27,7 +27,7 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     var reader = new FileReader();
 
     reader.onload = function(e) {
-        // Set the content of the CodeMirror editor to the loaded file content
+        // set the content of the CodeMirror editor to the loaded file content
         editorInput.setValue(e.target.result);
     };
     reader.readAsText(file);
@@ -37,12 +37,12 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
 /**
  * functions and relative logic found below
  */
-// Function to handle editor area and results area
+// function to handle editor area and results area
 function copyText() {
-    // Get the code from the editor
+    // get the code from the editor
     var code = editorInput.getValue();
 
-    // Set the code to the output area
+    // set the code to the output area
     editorOutput.setValue(code);
 }
 
@@ -54,10 +54,8 @@ document.getElementById('refactorButton').addEventListener('click', function() {
 document.getElementById('downloadButton').addEventListener('click', function() {
     // get the code from the output area
     var code = editorOutput.getValue();
-
-    // create a Blob object containing the code
+    // create a Blob object containing the user's code
     var blob = new Blob([code], { type: 'text/plain' });
-
     // create a URL for the Blob object
     var url = URL.createObjectURL(blob);
 
@@ -68,13 +66,10 @@ document.getElementById('downloadButton').addEventListener('click', function() {
 
     // append the anchor element to the body
     document.body.appendChild(a);
-
     // simulate a click on the anchor element to trigger the download
     a.click();
-
     // remove the anchor element from the body
     document.body.removeChild(a);
-
     // revoke the URL to release the resources
     URL.revokeObjectURL(url);
 });
@@ -86,11 +81,11 @@ document.getElementById('downloadButton').addEventListener('click', function() {
 document.getElementById('renameVariableButton').addEventListener('click', function() {
     // prompt user to enter the old variable name
     var oldVariableName = prompt('Enter the name of the variable to rename:');
-    if (!oldVariableName) return; // Exit if the user cancels or leaves the prompt blank
+    if (!oldVariableName) return; // exit if the user cancels or leaves the prompt blank
 
     // prompt user to enter the new variable name
     var newVariableName = prompt('Enter the new name for the variable:');
-    if (!newVariableName) return; // Exit if the user cancels or leaves the prompt blank
+    if (!newVariableName) return; // exit if the user cancels or leaves the prompt blank
 
     // get code from the editor
     var code = editorInput.getValue();
@@ -105,7 +100,7 @@ document.getElementById('renameVariableButton').addEventListener('click', functi
 
 // function to refactor 'rename variable'
 function refactorRenameVariable(code, oldVariableName, newVariableName) {
-    var regex = new RegExp('\\b' + oldVariableName + '\\b', 'g'); // Use word boundaries to match whole words
+    var regex = new RegExp('\\b' + oldVariableName + '\\b', 'g');
     var updatedCode = code.replace(regex, newVariableName);
 
     return updatedCode;
@@ -142,10 +137,8 @@ document.getElementById('extractMethodButton').addEventListener('click', functio
         // replace the selected code with a method call
         var methodCall = newMethodName + '();\n\n';
         editorInput.replaceSelection(methodCall);
-
         // insert the new method code at the cursor position in the editor
         editorInput.replaceSelection(newMethodCode);
-
         // update the CodeMirror editor
         editorOutput.setValue(editorInput.getValue());
         // feedback for user upon success
@@ -165,7 +158,6 @@ document.getElementById('inlineVariableButton').addEventListener('click', functi
     if (variableName && variableValue) {
         // get the code from the editor
         var code = editorInput.getValue();
-
         // refactor the code by replacing all occurrences of the variable with its value
         var updatedCode = refactorInlineVariable(code, variableName, variableValue);
 
@@ -215,8 +207,8 @@ function removeUnusedVariables(code) {
     }
     // iterate over the matches and remove declarations of unused variables
     matches.forEach(function (match) {
-        var variableName = match.split(/\s+/)[1]; // Extract variable name
-        var regex = new RegExp('\\b' + escapeRegExp(variableName) + '\\b', 'g'); // Escape special characters
+        var variableName = match.split(/\s+/)[1]; // extract the variable name
+        var regex = new RegExp('\\b' + escapeRegExp(variableName) + '\\b', 'g'); // escape any special characters
 
         // check if the variable is used in the code
         if (!code.match(regex)) {

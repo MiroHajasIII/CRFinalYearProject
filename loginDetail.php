@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // create a new instance of the Database class
+    // create a new instance of the Database class adn get database connection
     $db = Database::getInstance();
     $pdo = $db->getdbConnection();
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
